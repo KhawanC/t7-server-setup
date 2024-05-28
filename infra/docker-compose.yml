@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  t7-server-setup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./t7-server-setup:/t7-server-setup
+    stdin_open: true
+    tty: true
