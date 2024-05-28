@@ -1,15 +1,21 @@
 # T7 (AS I KNOW) ONLY WORKS ON UBUNTU 22.04
 FROM ubuntu:22.04
 
-# Atualizar o sistema e instalar Git
-RUN apt-get update && \
-    apt-get install -y git && \
-    apt-get install -y expect && \
-    apt-get clean
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND teletype
 
-RUN git clone git@github.com:KhawanC/t7-server-setup.git
+RUN apt update -y && \
+    apt upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata && \
+    apt install -y git && \
+    apt install -y expect && \
+    apt install -y sudo && \
+    apt install -y curl && \
+    apt clean
 
-WORKDIR /t7-server-setup
+WORKDIR /t7
+
+COPY ./t7-scripts /t7
 
 RUN chmod +x server_files_downloader.sh && \
     ./server_files_downloader.sh && \
@@ -17,4 +23,4 @@ RUN chmod +x server_files_downloader.sh && \
 
 EXPOSE 27017
 
-CMD ["./UnrankedServer/BOIII_Server.sh"]
+RUN ["bash"]

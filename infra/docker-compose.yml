@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./t7-server-setup:/t7-server-setup
+    ports:
+      - "27017:27017"
     stdin_open: true
     tty: true

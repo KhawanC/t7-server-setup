@@ -1,9 +1,5 @@
 BoiiiUrl="https://github.com/Ezz-lol/boiii-free/releases/latest/download/boiii.exe"
 
-#Updating stuff
-sudo apt update
-sudo apt upgrade -y
-
 #Install curl and wget
 sudo apt install curl wget -y
 
@@ -13,11 +9,14 @@ sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
 sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
 sudo apt update
-sudo apt install --install-recommends winehq-staging -y
+sudo apt install --install-recommends winehq-stable -y
 
 #Retrieves SteamCMD
 sudo add-apt-repository multiverse -y; sudo apt update
-sudo apt install steamcmd -y
+sudo steam steam/question select "I AGREE" | sudo debconf-set-selections | apt install steamcmd -y
+echo steam steam/question select "I AGREE" | debconf-set-selections && \
+    echo steam steam/license note '' | debconf-set-selections && \
+    DEBIAN_FRONTEND=noninteractive apt install -q -y --no-install-recommends steamcmd
 
 #Downloading server files
 current_dir=$(pwd)
